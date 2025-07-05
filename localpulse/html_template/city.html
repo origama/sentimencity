@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ city.name }} - Sentiment</h1>
+<div id="graph"></div>
+<script>
+fetch('data/{{ city.name }}.json')
+  .then(r => r.json())
+  .then(data => {
+    const trace = {x: data.dates, y: data.hsi, type: 'scatter'};
+    Plotly.newPlot('graph', [trace]);
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,15 @@
+llm:
+  base_url: "http://ollama:11434"
+  model: "phi3:sentiment"
+
+cities:
+  - name: "Rome"
+    opml: "rome.opml"
+  - name: "Milan"
+    opml: "milan.opml"
+
+scheduler:
+  ingest_interval_minutes: 60
+  analysis_interval_minutes: 30
+  metrics_time: "00:05"
+  site_time: "00:10"

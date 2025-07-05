@@ -1,0 +1,16 @@
+name: CI
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      docker:
+        image: docker:20-dind
+    steps:
+      - uses: actions/checkout@v3
+      - uses: abatilo/actions-poetry@v2
+      - run: poetry install --no-root
+      - run: poetry run ruff .
+      - run: poetry run mypy .
+      - run: poetry run pytest --cov --cov-report=term-missing
