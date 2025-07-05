@@ -1,0 +1,46 @@
+version: '3'
+services:
+  db:
+    image: sqlite
+    volumes:
+      - ./data:/data
+  ollama:
+    image: ollama/ollama
+    ports:
+      - "11434:11434"
+  ingest:
+    build: ./services/ingest
+    volumes:
+      - ./data:/data
+      - ./config.yml:/app/config.yml:ro
+    depends_on:
+      - db
+      - ollama
+  analysis_worker:
+    build: ./services/analysis_worker
+    volumes:
+      - ./data:/data
+      - ./config.yml:/app/config.yml:ro
+    environment:
+      - ANALYSIS_CONCURRENCY=2
+    depends_on:
+      - db
+      - ollama
+  metrics_builder:
+    build: ./services/metrics_builder
+    volumes:
+      - ./data:/data
+      - ./config.yml:/app/config.yml:ro
+    depends_on:
+      - db
+  site_builder:
+    build: ./services/site_builder
+    volumes:
+      - ./data:/data
+      - ./config.yml:/app/config.yml:ro
+      - ./public:/app/public
+    depends_on:
+      - db
+
+volumes:
+  data:

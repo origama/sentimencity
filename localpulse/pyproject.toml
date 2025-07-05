@@ -1,0 +1,49 @@
+[tool.poetry]
+name = "localpulse"
+version = "0.1.0"
+description = "City-specific news sentiment analysis system"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+packages = [
+    { include = "services" },
+    { include = "shared" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+feedparser = "*"
+aiohttp = "*"
+opml = "*"
+newspaper3k = "*"
+trafilatura = "*"
+pandas = "*"
+sqlite-utils = "*"
+typer = { extras = ["all"], version = "*" }
+jinja2 = "*"
+staticjinja = "*"
+requests = "*"
+pydantic = "^2.7"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "*"
+pytest-asyncio = "*"
+pytest-cov = "*"
+freezegun = "*"
+ruff = "*"
+mypy = "*"
+types-PyYAML = "*"
+types-requests = "*"
+pandas-stubs = "*"
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+ignore_missing_imports = true
+mypy_path = "."
+
+[tool.ruff]
+line-length = 100
+
+[build-system]
+requires = ["poetry-core>=1.2.0"]
+build-backend = "poetry.core.masonry.api"
